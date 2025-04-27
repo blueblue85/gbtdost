@@ -1,154 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="3">
-    <title>DOM & Time Sales</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: monospace;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-        .box {
-            border: 1px solid white;
-            margin: 10px;
-            padding: 10px;
-            width: 45%;
-        }
-        .title {
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
-        .price {
-            font-size: 26px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: yellow;
-        }
-        .order-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 3px 0;
-        }
-        .order-row.buy {
-            color: lime;
-        }
-        .order-row.sell {
-            color: red;
-        }
-        .baski {
-            font-size: 24px;
-            font-weight: bold;
-            padding: 10px;
-            margin: 20px;
-            border-radius: 10px;
-        }
-        .baski.alim {
-            background-color: green;
-            color: black;
-        }
-        .baski.satim {
-            background-color: red;
-            color: black;
-        }
-        .time-sales-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 3px 0;
-        }
-        .time-sales-row.buy {
-            color: lime;
-        }
-        .time-sales-row.sell {
-            color: red;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>gbtdost - DOM ve Time&Sales</title>
+  <style>
+    body {
+      background-color: #000000;
+      font-family: Arial, sans-serif;
+      color: #ffffff;
+      margin: 0;
+      padding: 10px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .dom, .timesales {
+      width: 48%;
+      border: 1px solid white;
+      padding: 10px;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 4px;
+      text-align: center;
+    }
+
+    th {
+      border-bottom: 1px solid white;
+    }
+
+    .buy {
+      color: #00FF00;
+    }
+
+    .sell {
+      color: #FF4040;
+    }
+
+    .price {
+      color: #FFFFFF;
+    }
+  </style>
 </head>
 <body>
 
-<div class="price">Last Price: 3425.7</div>
+<h2>gbtdost DOM ve Time&Sales (Demo Şablon)</h2>
 
 <div class="container">
-    <div class="box">
-        <div class="title">DOM</div>
-        <div class="order-row buy">
-            <div>Buy Orders: 120</div>
-            <div>C/Size: 300</div>
-        </div>
-        <div class="order-row sell">
-            <div>Sell Orders: 90</div>
-            <div>C/Size: 250</div>
-        </div>
-        <div class="order-row buy">
-            <div>Buy Orders: 110</div>
-            <div>C/Size: 280</div>
-        </div>
-        <div class="order-row sell">
-            <div>Sell Orders: 100</div>
-            <div>C/Size: 270</div>
-        </div>
-        <!-- Buraya DOM verileri akacak -->
-    </div>
+  <div class="dom">
+    <h2>Order Book (DOM)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>VAP</th>
+          <th>Bid</th>
+          <th>Ask</th>
+          <th>Size</th>
+          <th>C/Size</th>
+          <th># Orders</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Sadece boş satırlar şablon -->
+        <tr>
+          <td class="price">-</td>
+          <td class="buy">-</td>
+          <td class="sell">-</td>
+          <td class="price">-</td>
+          <td class="price">-</td>
+          <td class="price">-</td>
+        </tr>
+        <!-- 15 satır aşağıya kadar örnek -->
+        <tr><td class="price">-</td><td class="buy">-</td><td class="sell">-</td><td class="price">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="price">-</td><td class="buy">-</td><td class="sell">-</td><td class="price">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="price">-</td><td class="buy">-</td><td class="sell">-</td><td class="price">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="price">-</td><td class="buy">-</td><td class="sell">-</td><td class="price">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="price">-</td><td class="buy">-</td><td class="sell">-</td><td class="price">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="price">-</td><td class="buy">-</td><td class="sell">-</td><td class="price">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="price">-</td><td class="buy">-</td><td class="sell">-</td><td class="price">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="price">-</td><td class="buy">-</td><td class="sell">-</td><td class="price">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="price">-</td><td class="buy">-</td><td class="sell">-</td><td class="price">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="price">-</td><td class="buy">-</td><td class="sell">-</td><td class="price">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="price">-</td><td class="buy">-</td><td class="sell">-</td><td class="price">-</td><td class="price">-</td><td class="price">-</td></tr>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="box">
-        <div class="title">Time & Sales</div>
-        <div class="time-sales-row buy">
-            <div>3425.8</div>
-            <div>10</div>
-        </div>
-        <div class="time-sales-row sell">
-            <div>3425.7</div>
-            <div>8</div>
-        </div>
-        <div class="time-sales-row buy">
-            <div>3425.9</div>
-            <div>15</div>
-        </div>
-        <div class="time-sales-row sell">
-            <div>3425.6</div>
-            <div>12</div>
-        </div>
-        <!-- Buraya Time Sales verileri akacak -->
-    </div>
+  <div class="timesales">
+    <h2>Time & Sales</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Price</th>
+          <th>Size</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Sadece boş satırlar şablon -->
+        <tr>
+          <td class="buy">-</td>
+          <td class="price">-</td>
+          <td class="price">-</td>
+        </tr>
+        <tr><td class="sell">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="buy">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="sell">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="buy">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="sell">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="buy">-</td><td class="price">-</td><td class="price">-</td></tr>
+        <tr><td class="sell">-</td><td class="price">-</td><td class="price">-</td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<div id="baski" class="baski">Yükleniyor...</div>
-
-<script>
-    // Sözde veriler (örnek veriler)
-    const buySize = 230;  // Buy Orders C/Size toplamı
-    const sellSize = 190; // Sell Orders C/Size toplamı
-    const buyVolume = 25; // Time Sales alış hacmi
-    const sellVolume = 15; // Time Sales satış hacmi
-
-    function guncelleBaski() {
-        const baski = document.getElementById('baski');
-        if (buySize > sellSize && buyVolume > sellVolume) {
-            baski.textContent = "ALIM BASKISI VAR!";
-            baski.className = "baski alim";
-        } else if (sellSize > buySize && sellVolume > buyVolume) {
-            baski.textContent = "SATIŞ BASKISI VAR!";
-            baski.className = "baski satim";
-        } else {
-            baski.textContent = "NÖTR";
-            baski.className = "baski";
-        }
-    }
-
-    guncelleBaski();
-</script>
 
 </body>
 </html>
