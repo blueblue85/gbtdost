@@ -1,161 +1,153 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>gbtdost Canlı DOM ve Time&Sales</title>
+    <meta http-equiv="refresh" content="3">
+    <title>DOM & Time Sales</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f5f5f5;
-        }
-        table {
-            width: 95%;
-            margin: 10px auto;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        th, td {
-            padding: 4px;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #4CAF50;
+            background-color: black;
             color: white;
+            font-family: monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
         }
-        .buy {
-            background-color: #e0f7e0;
-            color: green;
+        .container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
         }
-        .sell {
-            background-color: #fbeaea;
-            color: red;
+        .box {
+            border: 1px solid white;
+            margin: 10px;
+            padding: 10px;
+            width: 45%;
+        }
+        .title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 20px;
         }
         .price {
-            background-color: #f0f0f0;
+            font-size: 26px;
             font-weight: bold;
+            margin-bottom: 20px;
+            color: yellow;
         }
-        .section-title {
-            margin-top: 30px;
-            font-size: 20px;
-            color: #333;
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
         }
-        .dom-table {
-            display: inline-block;
-            vertical-align: top;
-            width: 60%;
+        .order-row.buy {
+            color: lime;
         }
-        .sales-table {
-            display: inline-block;
-            vertical-align: top;
-            width: 35%;
+        .order-row.sell {
+            color: red;
+        }
+        .baski {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px;
+            margin: 20px;
+            border-radius: 10px;
+        }
+        .baski.alim {
+            background-color: green;
+            color: black;
+        }
+        .baski.satim {
+            background-color: red;
+            color: black;
+        }
+        .time-sales-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+        }
+        .time-sales-row.buy {
+            color: lime;
+        }
+        .time-sales-row.sell {
+            color: red;
         }
     </style>
 </head>
 <body>
 
-<h2>gbtdost Canlı DOM ve Time&Sales</h2>
+<div class="price">Last Price: 3425.7</div>
 
-<div class="dom-table">
-    <h3>Order Book (DOM)</h3>
-    <table id="dom-table">
-        <thead>
-            <tr>
-                <th>Buy Size</th>
-                <th>Bid Price</th>
-                <th>Price</th>
-                <th>Ask Price</th>
-                <th>Sell Size</th>
-            </tr>
-        </thead>
-        <tbody id="dom-body">
-            <!-- DOM verisi buraya gelecek -->
-        </tbody>
-    </table>
+<div class="container">
+    <div class="box">
+        <div class="title">DOM</div>
+        <div class="order-row buy">
+            <div>Buy Orders: 120</div>
+            <div>C/Size: 300</div>
+        </div>
+        <div class="order-row sell">
+            <div>Sell Orders: 90</div>
+            <div>C/Size: 250</div>
+        </div>
+        <div class="order-row buy">
+            <div>Buy Orders: 110</div>
+            <div>C/Size: 280</div>
+        </div>
+        <div class="order-row sell">
+            <div>Sell Orders: 100</div>
+            <div>C/Size: 270</div>
+        </div>
+        <!-- Buraya DOM verileri akacak -->
+    </div>
+
+    <div class="box">
+        <div class="title">Time & Sales</div>
+        <div class="time-sales-row buy">
+            <div>3425.8</div>
+            <div>10</div>
+        </div>
+        <div class="time-sales-row sell">
+            <div>3425.7</div>
+            <div>8</div>
+        </div>
+        <div class="time-sales-row buy">
+            <div>3425.9</div>
+            <div>15</div>
+        </div>
+        <div class="time-sales-row sell">
+            <div>3425.6</div>
+            <div>12</div>
+        </div>
+        <!-- Buraya Time Sales verileri akacak -->
+    </div>
 </div>
 
-<div class="sales-table">
-    <h3>Time & Sales</h3>
-    <table id="sales-table">
-        <thead>
-            <tr>
-                <th>Price</th>
-                <th>Volume</th>
-                <th>Time</th>
-            </tr>
-        </thead>
-        <tbody id="sales-body">
-            <!-- Time & Sales verisi buraya gelecek -->
-        </tbody>
-    </table>
-</div>
+<div id="baski" class="baski">Yükleniyor...</div>
 
 <script>
-    // Sahte veriler üretmek için
-    function generateRandomData() {
-        const domData = [];
-        for (let i = 0; i < 20; i++) {
-            const buySize = Math.floor(Math.random() * 100);
-            const sellSize = Math.floor(Math.random() * 100);
-            const price = (3400 + Math.random() * 10).toFixed(2);
-            domData.push({
-                buySize: buySize,
-                bid: (price - 0.5).toFixed(2),
-                price: price,
-                ask: (parseFloat(price) + 0.5).toFixed(2),
-                sellSize: sellSize
-            });
-        }
+    // Sözde veriler (örnek veriler)
+    const buySize = 230;  // Buy Orders C/Size toplamı
+    const sellSize = 190; // Sell Orders C/Size toplamı
+    const buyVolume = 25; // Time Sales alış hacmi
+    const sellVolume = 15; // Time Sales satış hacmi
 
-        const salesData = [];
-        for (let i = 0; i < 15; i++) {
-            const volume = Math.floor(Math.random() * 10) + 1;
-            const price = (3400 + Math.random() * 10).toFixed(2);
-            const now = new Date();
-            const time = now.toLocaleTimeString('tr-TR');
-            salesData.push({
-                price: price,
-                volume: volume,
-                time: time
-            });
+    function guncelleBaski() {
+        const baski = document.getElementById('baski');
+        if (buySize > sellSize && buyVolume > sellVolume) {
+            baski.textContent = "ALIM BASKISI VAR!";
+            baski.className = "baski alim";
+        } else if (sellSize > buySize && sellVolume > buyVolume) {
+            baski.textContent = "SATIŞ BASKISI VAR!";
+            baski.className = "baski satim";
+        } else {
+            baski.textContent = "NÖTR";
+            baski.className = "baski";
         }
-
-        return { domData, salesData };
     }
 
-    function updateTables() {
-        const { domData, salesData } = generateRandomData();
-
-        const domBody = document.getElementById('dom-body');
-        domBody.innerHTML = '';
-        domData.forEach(row => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td class="buy">${row.buySize}</td>
-                <td class="buy">${row.bid}</td>
-                <td class="price">${row.price}</td>
-                <td class="sell">${row.ask}</td>
-                <td class="sell">${row.sellSize}</td>
-            `;
-            domBody.appendChild(tr);
-        });
-
-        const salesBody = document.getElementById('sales-body');
-        salesBody.innerHTML = '';
-        salesData.forEach(row => {
-            const tr = document.createElement('tr');
-            const priceClass = parseFloat(row.price) % 2 === 0 ? 'buy' : 'sell';
-            tr.innerHTML = `
-                <td class="${priceClass}">${row.price}</td>
-                <td>${row.volume}</td>
-                <td>${row.time}</td>
-            `;
-            salesBody.appendChild(tr);
-        });
-    }
-
-    updateTables();
-    setInterval(updateTables, 3000); // Her 3 saniyede bir güncelle
+    guncelleBaski();
 </script>
 
 </body>
