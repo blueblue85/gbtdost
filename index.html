@@ -1,86 +1,71 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>gbtdost - Canlı Veri</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f3f3f3;
-      text-align: center;
-      padding: 30px;
-    }
-    table {
-      margin: 0 auto;
-      border-collapse: collapse;
-      width: 60%;
-      background-color: white;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    th, td {
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
-    }
-    th {
-      background-color: #4CAF50;
-      color: white;
-    }
-    .bid {
-      color: green;
-    }
-    .ask {
-      color: red;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>gbtdost Canlı DOM ve Time&Sales</title>
+    <meta http-equiv="refresh" content="3">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f2f2f2;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 60%;
+        }
+        th, td {
+            border: 1px solid #888;
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        td {
+            background-color: white;
+        }
+    </style>
 </head>
 <body>
 
-<h1>gbtdost Canlı DOM ve Time&Sales</h1>
+    <h1>gbtdost Canlı DOM ve Time&Sales</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Bid Volume</th>
-      <th>Ask Volume</th>
-      <th>Last Price</th>
-      <th>Trade Time</th>
-    </tr>
-  </thead>
-  <tbody id="data-body">
-    <tr>
-      <td class="bid">10</td>
-      <td class="ask">15</td>
-      <td>3420.75</td>
-      <td>12:45:30</td>
-    </tr>
-  </tbody>
-</table>
+    <table>
+        <thead>
+            <tr>
+                <th>Bid Volume</th>
+                <th>Ask Volume</th>
+                <th>Last Price</th>
+                <th>Trade Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="bidVolume"></td>
+                <td id="askVolume"></td>
+                <td id="lastPrice"></td>
+                <td id="tradeTime"></td>
+            </tr>
+        </tbody>
+    </table>
 
-<script>
-  // Şimdilik sahte veri üretecek fonksiyon
-  function generateFakeData() {
-    const bid = Math.floor(Math.random() * 100) + 1;
-    const ask = Math.floor(Math.random() * 100) + 1;
-    const price = (3400 + Math.random() * 50).toFixed(2);
-    const now = new Date();
-    const time = now.toLocaleTimeString();
+    <script>
+        function randomData() {
+            document.getElementById("bidVolume").innerText = Math.floor(Math.random() * 100);
+            document.getElementById("askVolume").innerText = Math.floor(Math.random() * 100);
+            document.getElementById("lastPrice").innerText = (3400 + Math.random() * 10).toFixed(2);
+            const now = new Date();
+            document.getElementById("tradeTime").innerText = now.toTimeString().split(' ')[0];
+        }
 
-    const tableBody = document.getElementById('data-body');
-    tableBody.innerHTML = `
-      <tr>
-        <td class="bid">${bid}</td>
-        <td class="ask">${ask}</td>
-        <td>${price}</td>
-        <td>${time}</td>
-      </tr>
-    `;
-  }
-
-  // Sayfa açıldığında ve her 15 saniyede bir veriyi güncelle
-  generateFakeData();
-  setInterval(generateFakeData, 15000);
-</script>
+        setInterval(randomData, 3000);
+        randomData();
+    </script>
 
 </body>
 </html>
