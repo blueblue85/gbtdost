@@ -2,15 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>gbtdost DOM ve Time&Sales</title>
+    <title>gbtdost DOM</title>
     <style>
         body {
             background-color: black;
             color: white;
             font-family: monospace;
-        }
-        h1 {
-            text-align: center;
         }
         .container {
             display: flex;
@@ -18,15 +15,14 @@
             margin-top: 20px;
         }
         table {
-            width: 45%;
-            margin: 10px;
+            width: 90%;
             border: 1px solid white;
             border-collapse: collapse;
         }
         th, td {
             padding: 5px;
             text-align: center;
-            border-bottom: 1px solid gray;
+            border: 1px solid gray;
         }
         th {
             background-color: #222;
@@ -37,76 +33,46 @@
     </style>
 </head>
 <body>
-    <h1>gbtdost DOM ve Time&Sales (Demo)</h1>
+    <h1 style="text-align:center;">gbtdost DOM (Mock Veri)</h1>
     <div class="container">
         <table>
             <thead>
                 <tr>
                     <th>VAP</th>
                     <th>Bid</th>
+                    <th></th>
                     <th>Ask</th>
                     <th>Size</th>
                     <th>C/Size</th>
-                    <th># Orders</th>
+                    <th>Order</th>
                 </tr>
             </thead>
             <tbody id="dom-table">
-                <!-- DOM verileri buraya gelecek -->
-            </tbody>
-        </table>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Price</th>
-                    <th>Size</th>
-                    <th>Time</th>
-                </tr>
-            </thead>
-            <tbody id="timesales-table">
-                <!-- Time&Sales verileri buraya gelecek -->
+                <!-- Veriler buraya gelecek -->
             </tbody>
         </table>
     </div>
 
     <script>
-        // SAHTE DOM VERİSİ
+        // SAHTE DOM VERİSİ (Senin çizimine göre)
         const domData = [
-            {vap: 100, bid_price: 5551.75, bid_size: 20, bid_orders: 4, ask_price: 5552.00, ask_size: 10, ask_orders: 3},
-            {vap: 200, bid_price: 5551.50, bid_size: 18, bid_orders: 3, ask_price: 5551.75, ask_size: 12, ask_orders: 2},
-            {vap: 150, bid_price: 5551.25, bid_size: 15, bid_orders: 2, ask_price: 5551.50, ask_size: 14, ask_orders: 2}
+            { vap: 10, bid: "", ask: 5524, size: 1, csize: 10, order: 5 },
+            { vap: 9, bid: "", ask: 5523, size: 3, csize: 8, order: 5 },
+            { vap: 10, bid: 5522, ask: "", size: 4, csize: 20, order: 7 },
+            { vap: 8, bid: 5520, ask: "", size: 5, csize: 30, order: 8 }
         ];
 
-        // SAHTE TIME & SALES VERİSİ
-        const timeSalesData = [
-            {price: 5551.75, size: 2, time: "22:07:30"},
-            {price: 5551.50, size: 1, time: "22:07:31"},
-            {price: 5551.25, size: 3, time: "22:07:32"}
-        ];
-
-        // DOM Tablosuna veri doldur
         const domTable = document.getElementById('dom-table');
         domData.forEach(row => {
             domTable.innerHTML += `
                 <tr>
                     <td>${row.vap}</td>
-                    <td style="color: lightgreen;">${row.bid_price}</td>
-                    <td style="color: red;">${row.ask_price}</td>
-                    <td>${row.bid_size}</td>
-                    <td>${row.ask_size}</td>
-                    <td>${row.bid_orders + row.ask_orders}</td>
-                </tr>
-            `;
-        });
-
-        // Time & Sales Tablosuna veri doldur
-        const tsTable = document.getElementById('timesales-table');
-        timeSalesData.forEach(row => {
-            tsTable.innerHTML += `
-                <tr>
-                    <td style="color: ${row.price >= 5551.50 ? 'lightgreen' : 'red'};">${row.price}</td>
+                    <td style="color: lightgreen;">${row.bid}</td>
+                    <td></td>
+                    <td style="color: red;">${row.ask}</td>
                     <td>${row.size}</td>
-                    <td>${row.time}</td>
+                    <td>${row.csize}</td>
+                    <td>${row.order}</td>
                 </tr>
             `;
         });
