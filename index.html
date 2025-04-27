@@ -3,31 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>gbtdost Canlı DOM ve Time&Sales</title>
-    <meta http-equiv="refresh" content="3">
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 50px;
-            background-color: #f2f2f2;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            margin-top: 20px;
         }
         table {
-            margin: 0 auto;
+            margin: 20px auto;
             border-collapse: collapse;
-            width: 60%;
+            width: 90%;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px #ccc;
         }
         th, td {
-            border: 1px solid #888;
-            padding: 10px;
-            text-align: center;
-            font-size: 18px;
+            border: 1px solid #ddd;
+            padding: 8px;
         }
         th {
             background-color: #4CAF50;
             color: white;
         }
-        td {
-            background-color: white;
+        .bid {
+            background-color: #d0f5d0;
+        }
+        .ask {
+            background-color: #f5d0d0;
         }
     </style>
 </head>
@@ -35,36 +39,98 @@
 
     <h1>gbtdost Canlı DOM ve Time&Sales</h1>
 
-    <table>
+    <h2>Order Book (DOM)</h2>
+    <table id="domTable">
         <thead>
             <tr>
-                <th>Bid Volume</th>
-                <th>Ask Volume</th>
-                <th>Last Price</th>
-                <th>Trade Time</th>
+                <th>VAP</th>
+                <th>Bid</th>
+                <th>Ask</th>
+                <th>Size</th>
+                <th>C/Size</th>
+                <th># Orders</th>
             </tr>
         </thead>
         <tbody>
+        </tbody>
+    </table>
+
+    <h2>Time & Sales</h2>
+    <table id="tsTable">
+        <thead>
             <tr>
-                <td id="bidVolume"></td>
-                <td id="askVolume"></td>
-                <td id="lastPrice"></td>
-                <td id="tradeTime"></td>
+                <th>Price</th>
+                <th>Size</th>
+                <th>Time</th>
             </tr>
+        </thead>
+        <tbody>
         </tbody>
     </table>
 
     <script>
-        function randomData() {
-            document.getElementById("bidVolume").innerText = Math.floor(Math.random() * 100);
-            document.getElementById("askVolume").innerText = Math.floor(Math.random() * 100);
-            document.getElementById("lastPrice").innerText = (3400 + Math.random() * 10).toFixed(2);
-            const now = new Date();
-            document.getElementById("tradeTime").innerText = now.toTimeString().split(' ')[0];
+        function generateRandomDOMData() {
+            const domData = [];
+            for (let i = 0; i < 15; i++) {
+                domData.push({
+                    vap: Math.floor(Math.random() * 5000),
+                    bid: (Math.random() > 0.5) ? (5550 + Math.random()).toFixed(2) : '',
+                    ask: (Math.random() > 0.5) ? (5550 + Math.random()).toFixed(2) : '',
+                    size: Math.floor(Math.random() * 20),
+                    csize: Math.floor(Math.random() * 100),
+                    orders: Math.floor(Math.random() * 10)
+                });
+            }
+            return domData;
         }
 
-        setInterval(randomData, 3000);
-        randomData();
+        function generateRandomTSData() {
+            const tsData = [];
+            for (let i = 0; i < 20; i++) {
+                tsData.push({
+                    price: (5550 + Math.random()).toFixed(2),
+                    size: Math.floor(Math.random() * 10) + 1,
+                    time: new Date().toLocaleTimeString()
+                });
+            }
+            return tsData;
+        }
+
+        function updateTables() {
+            const domTable = document.getElementById('domTable').getElementsByTagName('tbody')[0];
+            const tsTable = document.getElementById('tsTable').getElementsByTagName('tbody')[0];
+
+            domTable.innerHTML = '';
+            tsTable.innerHTML = '';
+
+            const domData = generateRandomDOMData();
+            domData.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${row.vap}</td>
+                    <td class="bid">${row.bid}</td>
+                    <td class="ask">${row.ask}</td>
+                    <td>${row.size}</td>
+                    <td>${row.csize}</td>
+                    <td>${row.orders}</td>
+                `;
+                domTable.appendChild(tr);
+            });
+
+            const tsData = generateRandomTSData();
+            tsData.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="color:${row.price >= 5550.5 ? 'blue' : 'red'};">${row.price}</td>
+                    <td>${row.size}</td>
+                    <td>${row.time}</td>
+                `;
+                tsTable.appendChild(tr);
+            });
+        }
+
+        setInterval(updateTables, 3000); // 3 saniyede bir güncelle
+        updateTables(); // İlk yükleme
     </script>
 
 </body>
