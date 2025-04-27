@@ -2,151 +2,137 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>gbtdost Canlı DOM ve Time&Sales</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM + Time & Sales (Demo)</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 50px;
             margin: 20px;
         }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .container {
-            display: flex;
-            justify-content: space-around;
-            gap: 10px;
-        }
         table {
-            width: 100%;
             border-collapse: collapse;
+            width: auto;
             font-size: 12px;
         }
         th, td {
-            border: 1px solid #ddd;
-            padding: 4px 6px;
+            padding: 4px 8px;
             text-align: center;
+            border: 1px solid #ddd;
         }
         th {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #f2f2f2;
         }
-        .ask {
-            background-color: #ffe6e6;
-            color: red;
-        }
-        .bid {
-            background-color: #e6ffe6;
+        .buy {
             color: green;
-        }
-        .orderbook, .timesales {
-            width: 48%;
-            background-color: white;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 0 8px rgba(0,0,0,0.1);
-        }
-        .section-title {
-            text-align: center;
             font-weight: bold;
-            margin-bottom: 8px;
+        }
+        .sell {
+            color: red;
+            font-weight: bold;
+        }
+        #orderbook {
+            width: 600px;
+        }
+        #timesales {
+            width: 300px;
         }
     </style>
 </head>
 <body>
-    <h1>gbtdost Canlı DOM ve Time&Sales</h1>
-    <div class="container">
-        <div class="orderbook">
-            <div class="section-title">Order Book (DOM)</div>
-            <table id="domTable">
-                <thead>
-                    <tr>
-                        <th>VAP</th>
-                        <th>Bid</th>
-                        <th>Ask</th>
-                        <th>Size</th>
-                        <th>C/Size</th>
-                        <th># Orders</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- DOM verileri buraya gelecek -->
-                </tbody>
-            </table>
-        </div>
-        <div class="timesales">
-            <div class="section-title">Time & Sales</div>
-            <table id="timesalesTable">
-                <thead>
-                    <tr>
-                        <th>Price</th>
-                        <th>Size</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Time&Sales verileri buraya gelecek -->
-                </tbody>
-            </table>
-        </div>
-    </div>
 
-    <script>
-        function randomPrice(base) {
-            return (base + (Math.random() - 0.5) * 1).toFixed(2);
-        }
+<table id="orderbook">
+    <thead>
+        <tr>
+            <th>VAP</th>
+            <th>Bid</th>
+            <th>Price</th>
+            <th>Ask</th>
+            <th>Size</th>
+            <th>#Orders</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
-        function generateDOMData() {
-            const domTable = document.getElementById('domTable').getElementsByTagName('tbody')[0];
-            domTable.innerHTML = '';
-            for (let i = 0; i < 15; i++) {
-                const row = domTable.insertRow();
-                const vap = row.insertCell();
-                const bid = row.insertCell();
-                const ask = row.insertCell();
-                const size = row.insertCell();
-                const csize = row.insertCell();
-                const orders = row.insertCell();
+<table id="timesales">
+    <thead>
+        <tr>
+            <th>Price</th>
+            <th>Volume</th>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
-                vap.textContent = Math.floor(Math.random() * 5000) + 500;
-                const bidPrice = randomPrice(5550);
-                const askPrice = randomPrice(5550);
-                bid.innerHTML = `<span class="bid">${bidPrice}</span>`;
-                ask.innerHTML = `<span class="ask">${askPrice}</span>`;
-                size.textContent = Math.floor(Math.random() * 20) + 1;
-                csize.textContent = Math.floor(Math.random() * 100) + 1;
-                orders.textContent = Math.floor(Math.random() * 8) + 1;
-            }
-        }
+<script>
+function randomData() {
+    const bid = Math.floor(Math.random() * 100) + 10;
+    const ask = bid + Math.floor(Math.random() * 10) + 1;
+    const price = (bid + ask) / 2;
+    const size = Math.floor(Math.random() * 20) + 1;
+    const orders = Math.floor(Math.random() * 5) + 1;
+    const vap = Math.floor(Math.random() * 500) + 50;
+    return { vap, bid, price: price.toFixed(2), ask, size, orders };
+}
 
-        function generateTimeSalesData() {
-            const tsTable = document.getElementById('timesalesTable').getElementsByTagName('tbody')[0];
-            tsTable.innerHTML = '';
-            for (let i = 0; i < 15; i++) {
-                const row = tsTable.insertRow();
-                const price = row.insertCell();
-                const size = row.insertCell();
-                const time = row.insertCell();
+function randomTimesales() {
+    const price = (Math.random() * 100 + 3000).toFixed(2);
+    const volume = Math.floor(Math.random() * 20) + 1;
+    const date = new Date();
+    const time = date.toTimeString().split(' ')[0];
+    return { price, volume, time };
+}
 
-                const randomIsBuy = Math.random() > 0.5;
-                price.innerHTML = `<span class="${randomIsBuy ? 'bid' : 'ask'}">${randomPrice(5550)}</span>`;
-                size.textContent = Math.floor(Math.random() * 10) + 1;
-                const date = new Date();
-                time.textContent = date.toTimeString().split(' ')[0];
-            }
-        }
+function updateOrderBook() {
+    const tbody = document.querySelector("#orderbook tbody");
+    tbody.innerHTML = "";
 
-        function updateTables() {
-            generateDOMData();
-            generateTimeSalesData();
-        }
+    for (let i = 0; i < 20; i++) {
+        const data = randomData();
+        const row = `
+            <tr>
+                <td>${data.vap}</td>
+                <td class="buy">${data.bid}</td>
+                <td>${data.price}</td>
+                <td class="sell">${data.ask}</td>
+                <td>${data.size}</td>
+                <td>${data.orders}</td>
+            </tr>
+        `;
+        tbody.innerHTML += row;
+    }
+}
 
-        // İlk yüklemede verileri getir
-        updateTables();
-        // Her 3 saniyede bir verileri güncelle
-        setInterval(updateTables, 3000);
-    </script>
+function updateTimeSales() {
+    const tbody = document.querySelector("#timesales tbody");
+    const data = randomTimesales();
+    const colorClass = Math.random() > 0.5 ? 'buy' : 'sell';
+    const row = `
+        <tr>
+            <td class="${colorClass}">${data.price}</td>
+            <td>${data.volume}</td>
+            <td>${data.time}</td>
+        </tr>
+    `;
+    tbody.innerHTML = row + tbody.innerHTML;
+    if (tbody.rows.length > 20) {
+        tbody.deleteRow(-1);
+    }
+}
+
+setInterval(() => {
+    updateOrderBook();
+    updateTimeSales();
+}, 3000);
+
+updateOrderBook();
+updateTimeSales();
+</script>
+
 </body>
 </html>
